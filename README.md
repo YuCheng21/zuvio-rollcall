@@ -12,24 +12,23 @@
 
 ## Usage
 
-1. 先到 [ChromeDriver - WebDriver](https://chromedriver.chromium.org/downloads) 下載符合自己作業系統瀏覽器的 `chromedirver.exe` 到本地電腦。
-2. 建立乾淨的 Python 虛擬環境來使用。
+1. 建立乾淨的 Python 虛擬環境來使用。
 
     ```bash
     $ python -m venv venv
     $ .\venv\Scripts\activate
     ```
 
-3. 安裝 Python 需要用到的依賴套件。
+2. 安裝 Python 需要用到的依賴套件。
 
     ```bash
     $ pip install -r requirements.txt
     ```
 
-4. 啟動程式 `zuvio.py`，開啟 UI 介面。
+3. 啟動程式 `zuvio.py`，開啟 UI 介面。
 
     ```bash
     $ python zuvio.py
     ```
 
-5. 點選`啟動點名`按鈕，開始自動化點名。
+4. 輸入個人自訂配置後，點選`啟動點名`按鈕，開始自動化點名。
