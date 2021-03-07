@@ -265,7 +265,7 @@ def user_interface():
     Button(config_frame, text="儲存資料", command=save_config, width=60) \
         .grid(column=0, row=5, columnspan=2, padx=10, pady=5, sticky=N)
 
-    logging_frame = LabelFrame(windows, text="紀錄")
+    logging_frame = LabelFrame(windows, text="記錄")
     logging_frame.grid(row=3, column=0)
 
     st = scrolledtext.ScrolledText(logging_frame, width=50, height=7, state='disabled', font=('微軟正黑體', 10))
