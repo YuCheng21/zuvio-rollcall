@@ -3,18 +3,17 @@ import os
 import threading
 import logging
 import random
-from tkinter import Tk, Button, PhotoImage, Label, Entry, StringVar, N, E, \
-    messagebox, scrolledtext, END, LabelFrame
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 from configparser import ConfigParser
 from webdriver_manager.chrome import ChromeDriverManager
+from tkinter import Tk, Button, PhotoImage, Label, Entry, StringVar, N, E, \
+    messagebox, scrolledtext, END, LabelFrame
 
 from images import img_icon
 from images import img_logo
-
 
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(levelname)s %(message)s',
@@ -65,10 +64,6 @@ def init_web():
         options.add_argument("--proxy-server='direct://'")
         options.add_argument("--proxy-bypass-list=*")
 
-        os.environ['WDM_LOG_LEVEL'] = '0'
-        os.environ['WDM_PRINT_FIRST_LINE'] = 'False'
-        os.environ['WDM_LOCAL'] = '1'
-
         driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(), options=options)
         # setting location
         params = {
@@ -77,8 +72,9 @@ def init_web():
             "accuracy": 100
         }
         driver.execute_cdp_cmd("Page.setGeolocationOverride", params)
-    except:
+    except Exception as e:
         stop_func()
+        logging.exception(e)
         logging.info("瀏覽器驅動錯誤，請確認下載驅動路徑正確")
         messagebox.showinfo("訊息", "瀏覽器驅動錯誤，請確認下載驅動路徑正確")
         logging.info("--------停止程序--------")
