@@ -285,11 +285,11 @@ def init_config():
     logging.info("初始化 config.ini")
     config["url"] = {
         "home_page": "https://irs.zuvio.com.tw/",
-        "subject_page": "https://irs.zuvio.com.tw/student5/irs/rollcall/510500"
+        "subject_page": "https://irs.zuvio.com.tw/student5/irs/rollcall/123456"
     }
     config["user"] = {
-        "account": "enter_account",
-        "password": "enter_password"
+        "account": "1234567890@school.edu.tw",
+        "password": "enter-password"
     }
     config["location"] = {
         "latitude": "22.649803",
