@@ -13,31 +13,23 @@
 ## Usage
 
 1. 先到 [ChromeDriver - WebDriver](https://chromedriver.chromium.org/downloads) 下載符合自己作業系統瀏覽器的 `chromedirver.exe` 到本地電腦。
-2. 進入專案目錄，編輯專案檔案 `config.ini`，修改以下自定義配置 :
-
-    - subject_page : 設定要點名的 Zuvio 課程網址。
-    - account : 設定 Zuvio 帳號。
-    - password : 設定 Zuvio 密碼。
-    - latitude, longitude : 設定學校定位的經度與緯度。
-    - min, max : 設定網頁隨機重新整理的最小與最大時間。
-    - chrome : 填入上面下載的 `chromedirver.exe` 路徑，也可將檔案放在專案目錄中 ( 預設路徑 )。
-3. 建立乾淨的 Python 虛擬環境來使用。
+2. 建立乾淨的 Python 虛擬環境來使用。
 
     ```bash
     $ python -m venv venv
     $ .\venv\Scripts\activate
     ```
 
-4. 安裝 Python 需要用到的依賴套件。
+3. 安裝 Python 需要用到的依賴套件。
 
     ```bash
     $ pip install -r requirements.txt
     ```
 
-5. 啟動程式 `zuvio.py`，開啟 UI 介面。
+4. 啟動程式 `zuvio.py`，開啟 UI 介面。
 
     ```bash
     $ python zuvio.py
     ```
 
-6. 點選`啟動點名`按鈕，開始自動化點名。
+5. 點選`啟動點名`按鈕，開始自動化點名。

@@ -1,4 +1,5 @@
 .idea/
+.wdm/
 venv/
 __pycache__/
 chromedriver.exe

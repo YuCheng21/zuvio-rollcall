@@ -10,9 +10,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 from configparser import ConfigParser
+from webdriver_manager.chrome import ChromeDriverManager
 
 from images import img_icon
 from images import img_logo
+
 
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(levelname)s %(message)s',
@@ -50,10 +52,10 @@ class TextHandler(logging.Handler):
         self.text.after(0, append)
 
 
-# auto roll call
-def auto_run():
-    logging.info("--------啟動程序--------")
+def init_web():
     global driver, running, interrupt
+    save_config()
+    logging.info("--------啟動程序--------")
     interrupt = threading.Event()
 
     try:
@@ -62,8 +64,12 @@ def auto_run():
         options.add_argument('--disable-gpu')
         options.add_argument("--proxy-server='direct://'")
         options.add_argument("--proxy-bypass-list=*")
-        driver_path = config["path"]["chrome"]
-        driver = webdriver.Chrome(executable_path=driver_path, options=options)
+
+        os.environ['WDM_LOG_LEVEL'] = '0'
+        os.environ['WDM_PRINT_FIRST_LINE'] = 'False'
+        os.environ['WDM_LOCAL'] = '1'
+
+        driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(), options=options)
         # setting location
         params = {
             "latitude": float(config["location"]["latitude"]),
@@ -88,8 +94,9 @@ def login():
     driver.find_element(By.ID, "email").send_keys(config["user"]["account"])
     driver.find_element(By.ID, "password").send_keys(config["user"]["password"])
     driver.find_element(By.ID, "login_btn").submit()
-    PageSource = driver.page_source
-    soup = BeautifulSoup(PageSource, 'html.parser')
+
+    page_source = driver.page_source
+    soup = BeautifulSoup(page_source, 'html.parser')
     result = soup.find(class_="msg_box")
     if "密碼錯誤" in str(result):
         logging.info("密碼錯誤")
@@ -105,9 +112,14 @@ def login():
         driver.get(config["url"]["subject_page"])
         logging.info("開始點名")
 
+    roll_call()
+
+
+def roll_call():
+    global driver, running, interrupt
     while running:
-        PageSource = driver.page_source
-        soup = BeautifulSoup(PageSource, 'html.parser')
+        page_source = driver.page_source
+        soup = BeautifulSoup(page_source, 'html.parser')
         result = soup.find("div", class_="irs-rollcall")
         logging.debug(result)
 
@@ -143,7 +155,7 @@ def login():
 def start_func():
     global running
     if not running:
-        thread = threading.Thread(target=auto_run)
+        thread = threading.Thread(target=init_web)
         thread.setDaemon(True)
         thread.start()
         running = True
@@ -167,10 +179,8 @@ def save_config():
         config["location"]["longitude"] = longitude.get()
         with open('config.ini', 'w') as configfile:
             config.write(configfile)
-        messagebox.showinfo("訊息", "儲存完成")
         logging.info("儲存完成")
     except:
-        messagebox.showinfo("訊息", "儲存失敗")
         logging.info("儲存失敗")
 
 
@@ -198,7 +208,6 @@ def about_message():
 def user_interface():
     windows = Tk()
     windows.title("Zuvio自動點名程式")
-    windows.geometry("450x600")
     windows.resizable(width=0, height=0)
 
     global subject_page, account, password, latitude, longitude
@@ -293,9 +302,6 @@ def init_config():
     config["refresh"] = {
         "min": "4",
         "max": "8"
-    }
-    config["path"] = {
-        "chrome": "chromedriver.exe"
     }
     with open("config.ini", "w+") as configfile:
         config.write(configfile)
