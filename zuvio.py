@@ -89,7 +89,7 @@ def login():
     driver.get(config["url"]["home_page"])
     driver.find_element(By.ID, "email").send_keys(config["user"]["account"])
     driver.find_element(By.ID, "password").send_keys(config["user"]["password"])
-    driver.find_element(By.ID, "login_btn").submit()
+    driver.find_element(By.ID, "login-btn").submit()
 
     page_source = driver.page_source
     soup = BeautifulSoup(page_source, 'html.parser')
