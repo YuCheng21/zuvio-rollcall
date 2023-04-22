@@ -30,7 +30,7 @@ class Script(QRunnable):
             try:
                 func(*args, **kwargs)
             except Exception as e:
-                logger.error(e.args[1])
+                logger.error(e)
             finally:
                 logger.info('----------結束點名----------')
                 self.stop()
@@ -88,11 +88,11 @@ class UserInterface:
         self.btn_stop: QPushButton = self.window.findChild(QPushButton, 'btn_stop')
         self.btn_about: QPushButton = self.window.findChild(QPushButton, 'btn_about')
 
-        self.edit_url: QTextEdit = self.window.findChild(QTextEdit, 'edit_url')
-        self.edit_account: QTextEdit = self.window.findChild(QTextEdit, 'edit_account')
+        self.edit_url: QLineEdit = self.window.findChild(QLineEdit, 'edit_url')
+        self.edit_account: QLineEdit = self.window.findChild(QLineEdit, 'edit_account')
         self.edit_password: QLineEdit = self.window.findChild(QLineEdit, 'edit_password')
-        self.edit_latitude: QTextEdit = self.window.findChild(QTextEdit, 'edit_latitude')
-        self.edit_longitude: QTextEdit = self.window.findChild(QTextEdit, 'edit_longitude')
+        self.edit_latitude: QLineEdit = self.window.findChild(QLineEdit, 'edit_latitude')
+        self.edit_longitude: QLineEdit = self.window.findChild(QLineEdit, 'edit_longitude')
         self.edit_logging: QTextEdit = self.window.findChild(QTextEdit, 'edit_logging')
 
         self.check_headless: QCheckBox = self.window.findChild(QCheckBox, 'checkBox')
@@ -100,11 +100,11 @@ class UserInterface:
         return 0
 
     def initialize(self):
-        self.edit_url.setPlainText(self.args.url.target)
-        self.edit_account.setPlainText(self.args.user.account)
+        self.edit_url.setText(self.args.url.target)
+        self.edit_account.setText(self.args.user.account)
         self.edit_password.setText(self.args.user.password)
-        self.edit_latitude.setPlainText(str(self.args.location.latitude))
-        self.edit_longitude.setPlainText(str(self.args.location.longitude))
+        self.edit_latitude.setText(str(self.args.location.latitude))
+        self.edit_longitude.setText(str(self.args.location.longitude))
         self.check_headless.setChecked(self.args.headless)
         return 0
 
@@ -116,11 +116,11 @@ class UserInterface:
         return 0
 
     def save(self):
-        self.args.url.target = self.edit_url.toPlainText()
-        self.args.user.account = self.edit_account.toPlainText()
+        self.args.url.target = self.edit_url.text()
+        self.args.user.account = self.edit_account.text()
         self.args.user.password = self.edit_password.text()
-        self.args.location.latitude = self.edit_latitude.toPlainText()
-        self.args.location.longitude = self.edit_longitude.toPlainText()
+        self.args.location.latitude = self.edit_latitude.text()
+        self.args.location.longitude = self.edit_longitude.text()
         self.args.headless = self.check_headless.isChecked()
         self.args = Settings(**self.args.dict())
         try:

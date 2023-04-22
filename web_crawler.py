@@ -1,6 +1,7 @@
 import random
 from pathlib import Path
 import time
+import os
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -18,6 +19,7 @@ class Zuvio:
     def __init__(self, args):
         self.args = args
         self.code = ZuvioCode()
+        os.environ["WDM_PROGRESS_BAR"] = "0"
 
     def __enter__(self):
         self.driver = self.get_driver()
