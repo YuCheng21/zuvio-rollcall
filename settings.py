@@ -53,6 +53,8 @@ def save_args(args, output_path=None):
 
 def read_args(file_path=None):
     assert file_path is not None
+    if Path(file_path).exists() is False:
+        return dict()
     with open(Path(file_path), 'r', encoding='utf-8') as f:
         args = yaml.load(f.read(), Loader=yaml.FullLoader)
     return args

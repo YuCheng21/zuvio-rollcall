@@ -20,14 +20,14 @@ class Zuvio:
         self.code = ZuvioCode()
 
     def __enter__(self):
-        self.driver = self.get_driver(headless=self.args.headless)
+        self.driver = self.get_driver()
         self.driver.implicitly_wait(10)
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.driver.quit()
 
-    def get_driver(self, headless=False):
+    def get_driver(self):
         driver_path = Path('./driver')
         driver_path.mkdir(parents=True, exist_ok=True)
         options = {
@@ -39,7 +39,7 @@ class Zuvio:
         options.add_argument('--disable-gpu')
         options.add_argument("--proxy-server='direct://'")
         options.add_argument("--proxy-bypass-list=*")
-        options.add_argument("--headless=new") if headless is True else 0
+        options.add_argument("--headless=new") if self.args.headless is True else 0
         driver = webdriver.Chrome(service=service, options=options)
         params = {
             "latitude": self.args.location.latitude,

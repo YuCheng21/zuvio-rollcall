@@ -10,25 +10,39 @@
 
 當課程開啟點名後，將自動點擊按鈕，確認點名成功後退出程式。
 
-## Usage
+## Environment
 
-1. 建立 Python 虛擬環境來使用 (python3.9)。
+- python 3.9 or later
 
-    ```bash
-    $ python -m venv venv
-    $ .\venv\Scripts\activate
-    ```
+```bash
+ pip install -r requirements.txt
+ ```
 
-2. 安裝 Python 需要用到的依賴套件。
+## Run
 
-    ```bash
-    $ pip install -r requirements.txt
-    ```
+ ```bash
+ python app.py
+ ```
 
-3. 啟動程式 `app.py`，開啟 UI 介面。
+啟動圖形應用程式，軟體操作步驟：
 
-    ```bash
-    $ python app.py
-    ```
+1. 輸入個人自訂配置
+2. 點選`啟動點名`按鈕，開始自動化點名。
 
-4. 輸入個人自訂配置後，點選`啟動點名`按鈕，開始自動化點名。
+## Build
+
+```bash
+python setup.py build
+```
+
+打包成可執行檔案，輸出在 `./build` 目錄下，根據不同作業系統打包在相應的目錄名稱中，執行目錄中的 `./app.exe` 啟動圖形應用程式。
+
+> 注意：Windows 11 必須使用 Python 3.9 以上版本構建。
+
+## Structure
+
+- `app.py`: 匯入 `app.ui` 樣式表並註冊介面元件，呼叫 `web_crawler.py` 執行程式邏輯。
+- `app.ui`: 使用 QT Designer 產生的 GUI 樣式表，並使用 `app.py` 匯入，若使用 cx-freeze 打包則必須放在根目錄使用。
+- `web_crawler.py`: Zuvio 自動點名類別，提供 `app.py` 呼叫。
+- `settings.py`: 程式配置設定
+- `setup.py`: 提供 `cx-freeze` 打包的腳本，配置構建應用程式的相關設定、路徑等。
