@@ -1,7 +1,7 @@
-.idea/
-.wdm/
-venv/
 __pycache__/
-chromedriver.exe
-config.ini
-
+venv/
+driver/
+.idea/
+logs/
+default.yaml
+__*.py

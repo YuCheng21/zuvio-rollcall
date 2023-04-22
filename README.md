@@ -12,7 +12,7 @@
 
 ## Usage
 
-1. 建立乾淨的 Python 虛擬環境來使用。
+1. 建立 Python 虛擬環境來使用 (python3.9)。
 
     ```bash
     $ python -m venv venv
@@ -25,10 +25,10 @@
     $ pip install -r requirements.txt
     ```
 
-3. 啟動程式 `zuvio.py`，開啟 UI 介面。
+3. 啟動程式 `app.py`，開啟 UI 介面。
 
     ```bash
-    $ python zuvio.py
+    $ python app.py
     ```
 
 4. 輸入個人自訂配置後，點選`啟動點名`按鈕，開始自動化點名。
